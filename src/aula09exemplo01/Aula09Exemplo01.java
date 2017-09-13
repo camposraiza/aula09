@@ -6,7 +6,10 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.HeadlessException;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.Box;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,6 +17,8 @@ import javax.swing.JTextField;
 
 public class Aula09Exemplo01 extends JFrame{    
     private JPanel principal = new JPanel();
+    private JComboBox<String> layouts = new JComboBox<>(new String[]{"Absolute", "FlowLayout", "BorderLayout", "GridLayout", 
+        "GridBagLayout", "HorizontalBox", "VerticalBox"});
     private JLabel lbl01 = new JLabel("Etiqueta 01");
     private JLabel lbl02 = new JLabel("Etiqueta 02");
     private JLabel lbl03 = new JLabel("Etiqueta 03");
@@ -26,14 +31,56 @@ public class Aula09Exemplo01 extends JFrame{
     
     
     public Aula09Exemplo01() throws HeadlessException {
-    super("Exemplos de layout");
-    //configuraFlowLayout();
-    //configuraBorderLayout();
-    //configuraLayoutAbsoluto();
-   // configuraGridBagLayout();
-    //configuraHorizontalBoxLayout();
-    configuraVerticalBoxLayout();
-    add(principal);
+    super("Exemplos de layout");   
+    configuraLayoutAbsoluto();
+    add(layouts, BorderLayout.NORTH);
+    add(principal, BorderLayout.CENTER);
+    layouts.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            System.out.println(
+            layouts.getSelectedIndex());
+            switch (layouts.getSelectedIndex()){
+                        case 0:
+                        configuraLayoutAbsoluto();
+                        break;
+                        
+                        case 1:
+                        configuraFlowLayout();
+                        break;
+                        
+                        
+                        case 2:
+                        configuraBorderLayout();
+                        break;
+                        
+                        
+                        case 3:
+                        configuraGridLayout();
+                        break;
+                        
+                        case 4:
+                        configuraGridBagLayout();
+                        break;
+                        
+                        
+                        case 5:
+                        configuraHorizontalBoxLayout();
+                        break;
+                        
+                        case 6:
+                        configuraVerticalBoxLayout();
+                        break;
+                        
+                        default:
+                            configuraFlowLayout();
+                            }
+            
+                            pack();
+                            //update(getGraphics());
+            
+        }
+    });
     }
        
     public static void main(String[] args) {
